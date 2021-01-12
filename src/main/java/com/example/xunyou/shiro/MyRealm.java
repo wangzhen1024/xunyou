@@ -39,7 +39,7 @@ public class MyRealm extends AuthorizingRealm  {
             // 把当前用户存到 Session 中
             SecurityUtils.getSubject().getSession().setAttribute("user", user);
             // 传入用户名和密码进行身份认证，并返回认证信息
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), "myRealm");
+            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), "MyRealm");
             return authcInfo;
         } else {
             return null;

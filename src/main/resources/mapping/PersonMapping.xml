@@ -22,16 +22,22 @@
     </select>
 
     <select id="getRoles" parameterType="java.lang.Integer" resultType="java.lang.String">
-        select roleid from tb_user_role where userid = #{id}
+        select r.rolename from tb_user_role as ur LEFT JOIN tb_role as r
+        on ur.id = r.id
+        where userid =  #{id}
     </select>
 
 
     <select id="getPermission" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT permissionname from tb_permission where id in (
         SELECT rp.permissionid from tb_user_role as ur LEFT JOIN tb_role_permissions as rp
         on ur.roleid = rp.roleid
-        where ur.userid = #{id}
-
+        where ur.userid = #{id} )
     </select>
+
+
+
+
 
 
 </mapper>
