@@ -27,13 +27,6 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @ResponseBody
-    @RequestMapping("/test")
-    public String Test(){
-        User user= userService.getById(1);
-        System.out.println(user.toString());
-        return "test";
-    }
 
     @ResponseBody
     @RequestMapping("/getById")
@@ -60,7 +53,7 @@ public class LoginController {
             //进行验证，这里可以捕获异常，然后返回对应信息
             subject.login(usernamePasswordToken);
             //subject.checkRole("管理员");
-            subject.checkPermissions("测试权限");
+            subject.checkPermissions("测试权限:*");
         } catch (UnknownAccountException e) {
             log.error("用户名不存在！", e);
             return "用户名不存在！";
@@ -74,22 +67,23 @@ public class LoginController {
         return "login success";
     }
 
-    @RequiresRoles("admin")
+
+    @RequiresRoles("管理员")
     @RequestMapping("/admin")
     public String admin() {
-        return "admin success!";
+        return "admin success! 管理员";
     }
 
-    @RequiresPermissions("query")
-    @RequestMapping("/index")
+    @RequiresPermissions("测试权限")
+    @RequestMapping("/test")
     public String index() {
-        return "index success!";
+        return "index success! 测试权限";
     }
 
-    @RequiresPermissions("add")
-    @RequestMapping("/add")
+    @RequiresRoles("会员")
+    @RequestMapping("/huiyuan")
     public String add() {
-        return "add success!";
+        return "add success! 会员";
     }
 
 

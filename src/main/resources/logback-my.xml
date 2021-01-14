@@ -44,14 +44,14 @@
     <springProfile name="local">
         <logger name="com.example.xunyou" level="INFO"/><!-- 定义将com.my包下的最低级别日志信息 -->
         <root>
-            <level value="DEBUG" /> <!-- 系统全局日志输出最低级别，但不包括com.my包 -->
+            <level value="INFO" /> <!-- 系统全局日志输出最低级别，但不包括com.my包 -->
             <appender-ref ref="STDOUT" />
         </root>
     </springProfile>
 
     <!-- 定义测试环境日志级别 -->
     <springProfile name="qa">
-        <logger name="com.example.xunyou" level="DEBUG"/>
+        <logger name="com.example.xunyou" level="INFO"/>
         <root>
             <level value="INFO" />
             <appender-ref ref="STDOUT" />

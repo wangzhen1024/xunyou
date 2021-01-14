@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/xunyou?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
@@ -6,12 +5,19 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
-    #默认使用application-local.properties,logback-my.xml中也将使用name="local"输出日志
     active: local
+  redis:
+    port: 6379
+    host: localhost
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        min-idle: 0
+        max-idle: 8
+    timeout: 0
 mybatis:
   mapper-locations: classpath:Mapping/*Mapping.xml
   type-aliases-package: com.example.xunyou.mapper
 logging:
-  #定义logback的名字，否则默认名字必须为:logback-spring.xml
   config: classpath:logback-my.xml
-
