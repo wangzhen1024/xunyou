@@ -11,18 +11,30 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Objects;
+
 @RestController
 @Slf4j
 public class LoginController {
 
-
+    //private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private UserService userService;
@@ -43,6 +55,27 @@ public class LoginController {
         if (StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
             return "请输入用户名和密码！";
         }
+
+        /**
+         *
+
+        Collection<Session> sessions = sessionDAO.getActiveSessions(); // 获取存在的所有SESSION账号
+        log.info("There are {} several caches ", sessions.size());
+        Iterator<Session> it = sessions.iterator();
+        while (it.hasNext()) {                                       // session 进行遍历
+            Session session = it.next();
+            SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection) session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+            log.info("There are ={}= simplePrincipalCollection ", simplePrincipalCollection);
+            if (Objects.nonNull(simplePrincipalCollection)) {        // 如果不为null 则判断账号密码是否一样，一样的剔除前个登陆账号
+                User us = (User) simplePrincipalCollection.getPrimaryPrincipal();
+                if (us.getUsername().equals(user.getUsername()) && us.getPassword().equals(user.getPassword())) {
+                    session.setTimeout(100);// 注意，这里不能设置为0，如果设置为0，会下面shiro授权报错的
+                }
+            }
+        }
+         */
+
+
         //用户认证信息
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
@@ -86,6 +119,11 @@ public class LoginController {
         return "add success! 会员";
     }
 
-
+    //被踢出后跳转的页面
+    @ResponseBody
+    @RequestMapping(value = "/land")
+    public String kickOut() {
+        return "kickout";
+    }
 
 }
