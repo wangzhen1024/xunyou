@@ -80,7 +80,7 @@ public class LoginController {
 
     @RequiresPermissions("测试权限")
     @RequestMapping("/test")
-    @WebLog(description = "mapping-test-日志测试")
+    @WebLog(description = "/test")
     public String index() {
         return "index success! 测试权限";
     }
