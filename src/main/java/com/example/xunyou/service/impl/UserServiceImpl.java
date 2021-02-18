@@ -36,5 +36,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.getPermission(user.getId());
     }
 
-
+    @Override
+    public String test(String username) {
+        return username;
+    }
 }

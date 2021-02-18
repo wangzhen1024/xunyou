@@ -10,4 +10,5 @@ public interface UserService {
     public User getByName(String username);
     public Set<String> getRoles(String username);
     public Set<String> getPermissions(String username);
+    public String test(String username);
 }

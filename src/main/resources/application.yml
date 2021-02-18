@@ -14,7 +14,16 @@ spring:
         min-idle: 0
         max-idle: 8
     timeout: 0
+  devtools:
+    restart:
+      enabled: true
+  mvc:
+    view:
+      suffix: .html
+      prefix: classpath:/templates/
 mybatis:
   mapper-locations: classpath:Mapping/*Mapping.xml
   type-aliases-package: com.example.xunyou.mapper
+
+
 
