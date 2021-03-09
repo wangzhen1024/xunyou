@@ -76,9 +76,10 @@ public class LoginController {
         return "admin success! 管理员";
     }
 
-    @RequiresPermissions("测试权限")
+    @ResponseBody
+    @RequiresPermissions("测试权限:update")
     @RequestMapping("/test")
-    @WebLog(description = "/test")
+    //@WebLog(description = "/test")
     public String index() {
         return "index success! 测试权限";
     }
