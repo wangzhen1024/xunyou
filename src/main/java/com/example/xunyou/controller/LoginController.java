@@ -52,7 +52,7 @@ public class LoginController {
             //subject.checkRole("管理员");
             //subject.checkPermissions("测试权限:*");
         } catch (UnknownAccountException e) {
-            logger.error("用户名不存在！", e);
+            logger.error("用户名不存在.！", e);
             return Result.fail(300,"账号信息错误");
         } catch (AuthenticationException e) {
             logger.error("账号或密码错误！", e);
